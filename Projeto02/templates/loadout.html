@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Loadout CS2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        
+        <img src="{{ url_for('static', filename='armas/cs2img.webp') }}" 
+             alt="CS2 Logo" 
+             class="header-logo"
+             style="width:26px; height:auto;">
+
+        <div class="header-title">
+            <h1>Configurar Loadout – CS2</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Economia</a>
+            <a href="{{ url_for('loadout') }}" class="ativo">Loadout</a>
+            <a href="{{ url_for('estrategias') }}">Estratégias de Mapas</a>
+            <a href="{{ url_for('quem_somos') }}">Quem Somos</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <p class="descricao">
+        Monte um loadout separado para TR e CT, parecido com o menu de compra do CS2.
+        As imagens são meramente ilustrativas.
+    </p>
+    <section class="card card-loadout-grid">
+        <form method="POST" class="loadout-grid-inner">
+            <div class="loadout-side loadout-tr">
+                <h2>Loadout TR</h2>
+                {% for categoria,itens in categorias_tr.items() %}
+                    <div class="categoria-block">
+                        <h3>{{ categoria }}</h3>
+                        <div class="lista-itens">
+                            {% for cod in itens %}
+                                <label class="checkbox-item">
+                                    <span class="check-and-name">
+                                        <input type="checkbox" name="itens_tr" value="{{ cod }}">
+                                        {% if cod in imagens %}
+                                            <img class="weapon-icon" src="{{ url_for('static', filename=imagens[cod]) }}" alt="{{ nomes[cod] }}">
+                                        {% endif %}
+                                        <span class="nome">{{ nomes[cod] }}</span>
+                                    </span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="loadout-side loadout-ct">
+                <h2>Loadout CT</h2>
+                {% for categoria,itens in categorias_ct.items() %}
+                    <div class="categoria-block">
+                        <h3>{{ categoria }}</h3>
+                        <div class="lista-itens">
+                            {% for cod in itens %}
+                                <label class="checkbox-item">
+                                    <span class="check-and-name">
+                                        <input type="checkbox" name="itens_ct" value="{{ cod }}">
+                                        {% if cod in imagens %}
+                                            <img class="weapon-icon" src="{{ url_for('static', filename=imagens[cod]) }}" alt="{{ nomes[cod] }}">
+                                        {% endif %}
+                                        <span class="nome">{{ nomes[cod] }}</span>
+                                    </span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions loadout-actions">
+                <button type="submit">Salvar loadout</button>
+            </div>
+        </form>
+    </section>
+    {% if resultado %}
+    <section class="card card-flex">
+        <div class="card-col">
+            <h2>Loadout salvo</h2>
+        </div>
+        <div class="card-col">
+            <div class="pills-wrap">
+                {% for item in resultado.itens %}
+                    <span class="pill">{{ item }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</main>
+<footer>Projeto acadêmico.</footer>
+</body>
+</html>

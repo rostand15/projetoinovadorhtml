@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Contato – CS2 Economia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <img src="{{ url_for('static', filename='armas/cs2img.webp') }}" 
+             alt="CS2 Logo" 
+             class="header-logo"
+             style="width:26px; height:auto;">
+             
+        <div class="header-title">
+            <h1>Contato</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Economia</a>
+            <a href="{{ url_for('loadout') }}">Loadout</a>
+            <a href="{{ url_for('estrategias') }}">Estratégias de Mapas</a>
+            <a href="{{ url_for('quem_somos') }}">Quem Somos</a>
+            <a href="{{ url_for('contato') }}" class="ativo">Contato</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <section class="card">
+        <h2>Fale com a gente</h2>
+        <p class="descricao">
+            Preencha o formulário abaixo para enviar dúvidas, sugestões ou feedback
+            sobre o projeto de economia do CS2.
+        </p>
+
+        <form method="POST" class="form-grid">
+            <label>Nome
+                <input type="text" name="nome" required>
+            </label>
+
+            <label>E-mail
+                <input type="email" name="email" required>
+            </label>
+
+            <label>Assunto
+                <input type="text" name="assunto" required>
+            </label>
+
+            <label>Mensagem
+                <textarea name="mensagem" rows="4" required
+                          style="resize: vertical; background:#020617; border-radius:10px; border:1px solid #374151; padding:6px 8px; color:#e5e7eb; font-size:13px;"></textarea>
+            </label>
+
+            <button type="submit">Enviar mensagem</button>
+        </form>
+
+        {% if status %}
+            <p class="contato-status">{{ status }}</p>
+        {% endif %}
+    </section>
+</main>
+<footer>Projeto acadêmico – formulário de contato.</footer>
+</body>
+</html>

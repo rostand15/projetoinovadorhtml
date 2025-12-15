@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Quem Somos – CS2 Economia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+
+        <img src="{{ url_for('static', filename='armas/cs2img.webp') }}" 
+             alt="CS2 Logo" 
+             class="header-logo"
+             style="width:26px; height:auto;">
+
+        <div class="header-title">
+            <h1>Quem Somos</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Economia</a>
+            <a href="{{ url_for('loadout') }}">Loadout</a>
+            <a href="{{ url_for('estrategias') }}">Estratégias de Mapas</a>
+            <a href="{{ url_for('quem_somos') }}" class="ativo">Quem Somos</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <section class="card">
+    <h2>Equipe</h2>
+
+    <p class="grupo">
+        A equipe de desenvolvimento é formada por três profissionais dedicados, cada um trazendo competências únicas que se complementam e garantem eficiência, inovação e alta qualidade em cada projeto.
+    </p>
+
+    <div class="membro">
+        <h3>Rostand Araújo <span>– Desenvolvedor Full Stack </span></h3>
+        <p>
+            Rostand é responsável pela construção de soluções completas, atuando tanto no back-end quanto no front-end. Com forte domínio de arquitetura de sistemas, otimização de desempenho e boas práticas de desenvolvimento, ele garante que cada aplicação seja estruturada, segura e escalável. Sua visão estratégica contribui diretamente para a solidez dos projetos.
+        </p>
+    </div>
+
+    <div class="membro">
+        <h3>Samuel Brito <span>– Desenvolvedor Full Stack </span></h3>
+        <p>
+            Samuel é o especialista em interface e comportamento da aplicação. Seu foco está em criar experiências modernas, fluidas e funcionais, sempre alinhadas às necessidades do usuário. Com habilidade em design responsivo e interfaces intuitivas, ele transforma ideias em layouts eficientes e visualmente atraentes.
+        </p>
+    </div>
+
+    <div class="membro">
+        <h3>Aníbal Neto <span>– Desenvolvedor Back-End | Integrações & Automação</span></h3>
+        <p>
+            Aníbal é responsável pelo desenvolvimento da lógica e infraestrutura por trás dos sistemas, garantindo que todas as funcionalidades funcionem de forma eficiente e confiável.
+    </div>
+</section>
+
+
+    <section class="card">
+        <h2>Nosso objetivo</h2>
+        <p class="descricao">
+            Este projeto foi desenvolvido como trabalho acadêmico para auxiliar jogadores de CS2
+            a tomarem melhores decisões de compra em função da economia do jogo.
+        </p>
+        <p>
+            A ideia é transformar conceitos de economia do CS2 — como bônus de derrota, round
+            forçado, armado e gerenciamento de dinheiro — em uma ferramenta simples, visual
+            e acessível, que pode ser utilizada tanto em desktop quanto em dispositivos móveis.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>O que o sistema faz</h2>
+        <ul>
+            <li>Simula compras ideais com base no valor em caixa e no bônus de round perdido.</li>
+            <li>Considera o lado (TR/CT), estilo de jogo (rifler, AWPer, eco/force) e mapa.</li>
+            <li>Permite configurar loadouts separados para TR e CT, com armas e equipamentos preferidos.</li>
+            <li>Sugere estratégias coerentes com o tipo de round e o mapa selecionado.</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Tecnologias utilizadas</h2>
+        <ul>
+            <li><strong>Python</strong> e <strong>Flask</strong> no back-end.</li>
+            <li><strong>HTML</strong> e <strong>CSS</strong> com abordagem mobile-first no front-end.</li>
+            <li>Organização em templates, arquivos de dados e rotas separadas para facilitar a manutenção.</li>
+        </ul>
+    </section>
+</main>
+<footer>Projeto acadêmico – página Quem Somos.</footer>
+</body>
+</html>

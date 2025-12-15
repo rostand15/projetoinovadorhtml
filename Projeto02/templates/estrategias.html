@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Estratégias de Mapas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <img src="{{ url_for('static', filename='armas/cs2img.webp') }}" 
+             alt="CS2 Logo" 
+             class="header-logo"
+             style="width:26px; height:auto;">
+             
+        <div class="header-title">
+            <h1>Estratégias de Mapas – CS2</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Economia</a>
+            <a href="{{ url_for('loadout') }}">Loadout</a>
+            <a href="{{ url_for('estrategias') }}" class="ativo">Estratégias de Mapas</a>
+            <a href="{{ url_for('quem_somos') }}">Quem Somos</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <p class="descricao">Escolha um mapa para ver ideias de estratégias.</p>
+    <section class="card cards-mapas">
+        {% for slug,nome in mapas.items() %}
+            <a class="map-card" href="{{ url_for('estrategias_detalhe', mapa_slug=slug) }}">
+                <h2>{{ nome }}</h2>
+                <p>Clique para ver estratégias TR e CT.</p>
+            </a>
+        {% endfor %}
+    </section>
+</main>
+<footer>Projeto acadêmico.</footer>
+</body>
+</html>

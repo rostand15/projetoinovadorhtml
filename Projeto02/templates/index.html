@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Assistente de Economia CS2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+
+        <img src="{{ url_for('static', filename='armas/cs2img.webp') }}" 
+             alt="CS2 Logo" 
+             class="header-logo"
+             style="width:26px; height:auto;">
+
+        <div class="header-title">
+            <h1>Assistente de Compra – Economia CS2</h1>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('index') }}" class="ativo">Economia</a>
+            <a href="{{ url_for('loadout') }}">Loadout</a>
+            <a href="{{ url_for('estrategias') }}">Estratégias de Mapas</a>
+            <a href="{{ url_for('quem_somos') }}">Quem Somos</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+    <section class="card card-flex">
+        <div class="card-col">
+            <h2>Simulador de compra</h2>
+            <p class="descricao">
+                Preencha as informações do round que o sistema sugere uma compra
+                baseada em economia, bônus de derrota, mapa e loadout salvo.
+            </p>
+            <form method="POST" class="form-grid">
+                <label>Dinheiro disponível ($)
+                    <input type="number" name="dinheiro" min="0" required>
+                </label>
+                <label>Lado
+                    <select name="lado">
+                        <option value="TR">TR (Terrorista)</option>
+                        <option value="CT">CT (Contra-Terrorista)</option>
+                    </select>
+                </label>
+                <label>Estilo de jogo
+                    <select name="estilo">
+                        <option value="rifler">Rifler</option>
+                        <option value="awper">AWPer</option>
+                        <option value="eco">Eco / Forçado</option>
+                    </select>
+                </label>
+                <label>Loss bonus (0 a 5)
+                    <input type="number" name="loss_bonus" min="0" max="5">
+                </label>
+                <label>Menor dinheiro do time ($)
+                    <input type="number" name="team_min" min="0">
+                </label>
+                <label>TR já está de AK?
+                    <select name="enemy_has_ak">
+                        <option value="nao">Não</option>
+                        <option value="sim">Sim</option>
+                    </select>
+                </label>
+                <label>Mapa
+                    <select name="mapa">
+                        {% for slug,nome in mapas.items() %}
+                            <option value="{{ slug }}">{{ nome }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Arma que você quer ter no próximo round
+                    <select name="arma_prox">
+                        <option value="">(opcional)</option>
+                        {% for arma in armas_prox %}
+                            <option value="{{ arma.cod }}">{{ arma.nome }} — ${{ arma.preco }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="priorizar_defuse">
+                    Priorizar kit defuse (CT)
+                </label>
+                <button type="submit">Calcular compra ideal</button>
+            </form>
+        </div>
+        <div class="card-col">
+            <h2>Resultado</h2>
+            {% if resultado %}
+                <p><strong>Lado:</strong> {{ resultado.lado }} |
+                   <strong>Estilo:</strong> {{ resultado.estilo }} |
+                   <strong>Mapa:</strong> {{ mapas[resultado.mapa] }}</p>
+                <p><strong>Itens sugeridos:</strong></p>
+                <div class="pills-wrap">
+                    {% for item in resultado.itens %}
+                        <span class="pill">{{ item }}</span>
+                    {% endfor %}
+                </div>
+                <p><strong>Dinheiro restante:</strong> ${{ resultado.restante }}</p>
+                <p class="texto-estrategia">
+                    <strong>Lógica da compra:</strong><br>{{ resultado.estrategia }}
+                </p>
+                {% if resultado.estrategia_mapa %}
+                    <p class="texto-estrategia">
+                        <strong>Estratégia para o mapa:</strong><br>{{ resultado.estrategia_mapa }}
+                    </p>
+                {% endif %}
+                {% if resultado.prox_round %}
+                    <div class="prox-round">
+                        <h3>Planejamento para o próximo round</h3>
+                        <p>Arma desejada: {{ resultado.prox_round.nome }} (${{ resultado.prox_round.preco }})</p>
+                        <p>Você pode gastar com segurança até <strong>${{ resultado.prox_round.max_gastar_seguro }}</strong>
+                           e ainda conseguir essa arma no próximo round.</p>
+                    </div>
+                {% endif %}
+                {% if resultado.usando_loadout %}
+                    <p class="nota-loadout">Sugestão considerou o loadout salvo.</p>
+                {% endif %}
+            {% else %}
+                <p>Preencha os dados e clique em <strong>Calcular compra ideal</strong>.</p>
+            {% endif %}
+        </div>
+    </section>
+</main>
+<footer>Projeto acadêmico – valores e armas fictícias.</footer>
+</body>
+</html>
